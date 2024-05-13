@@ -4,19 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make an account</title>
+    <script src="/js/apihandling.js"></script>
+    <script src="/js/accountregistration.js" defer></script>
 </head>
 <body>
-    <h1>Make an account</h1>
-    <form id="registration">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" autocomplete="username">
-        <label for="password">Password:</label>
-        <input type="text" id="password" name="password" autocomplete="current-password">
-        <button type="button" id="registerBtn">Register</button>
-    </form>
-    <ul id="accountList"></ul>
-    <ul id="otherResourceList"></ul>
+    <h1>Opprett bruker</h1>
+    <input type="text" id="newUsername" placeholder="Brukernavn">
+    <input type="text" id="newPassword" placeholder="Passord">
+    <button id="createUserBtn">Opprett bruker</button>
 
-    <script src="js/accountregistration.js" defer></script>
+    <h2>Logg inn</h2_>
+        <input type="text" id="loginUsername" placeholder="Brukernavn">
+        <input type="text" id="loginPassword" placeholder="Passord">
+        <button id="loginBtn">Logg inn</button>
+
+    <h2>Logg ut</h2>
+    <button id="logoutBtn">Logg ut</button>
+    
+    <h2>Sjekk om du er logget inn</h2>
+    <button id="checkLoginBtn">Sjekk innloggingsstatus</button>
 </body>
 </html>

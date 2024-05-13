@@ -1,48 +1,68 @@
-const apiURL = 'https://crudcrud.com/api/ce930c17c22848b7b7e6ce9a009c48cc';
-
-const registerBtn = document.getElementById('registerBtn');
-const usernameInput = document.getElementById('username');
-const passwordInput = document.getElementById('password');
-const responseInfo = document.getElementById('responseInfo');
-
-window.onload = async function () {
-    await fetchAccounts();
-    await fetchOtherResources();
-};
-
-registerBtn.addEventListener("click", async () => {
-    const username = usernameInput.value.trim();
-    const password = passwordInput.value.trim();
-
-    if(username && password) {
-        try{
-            const userData = { username, password };
-            const response = await fetch(apiURL, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(userData)
-            });
-            const responseData = await response.json();
-            responseInfo.textContent = JSON.stringify(responseData);
-            usernameInput.value = '';
-            passwordInput.value = '';
-            await fetchAccounts();
-        } catch (error) {
-            console.error('Failed registering account', error);
-        }
-    } else {
-        alert('Username and password are required');
-    }
-});
-
-async function fetchAccounts() {
-    try {
-        const response = await fetch(apiURL);
-        const accounts = await response.json();
-        // Here you can choose to do something with the accounts data if needed
-    } catch (error) {
-        console.error('Failed fetching accounts', error);
+class User {
+    constructor(username, password) {
+        this.username = username;
+        this.password = password;
     }
 }
+
+const users = [];
+
+function createUser(username, password) {
+    const newUser = new User(username, password);
+    users.push(newUser);
+}
+
+function registerUser(username, password) {
+    const newUser = new User(username, password);
+    saveUserToAPI(newUser);
+    sessionStorage.setItem('currentUser', JSON.stringify(newUser));
+  }
+
+function login(username, password) {
+    const user = users.find(user => user.username === username);
+    if (user) {
+        if (user.password === password) {
+            sessionStorage.setItem('currentUser', JSON.stringify(user));
+            alert("Innlogging vellykket!");
+        } else {
+            alert("Feil passord!");
+        }
+    } else {
+        alert("Brukeren eksisterer ikke!");
+    }
+}
+
+function logout() {
+    sessionStorage.removeItem('currentUser');
+    alert("Utlogging vellykket!")
+}
+
+function checkLogIn() {
+    const currentUser = sessionStorage.getItem('currentUser');
+    if (currentUser) {
+      const user = JSON.parse(currentUser);
+      if (user && user.username) {
+        alert(`Logget inn som: ${user.username}`);
+      } else {
+        alert("Brukerobjektet er ikke riktig formatert.");
+      }
+    } else {
+      alert("Ingen brukere er logget inn.");
+    }
+  }
+
+document.getElementById('createUserBtn').addEventListener('click', function() {
+    const username = document.getElementById('newUsername').value;
+    const password = document.getElementById('newPassword').value;
+    createUser(username, password);
+});
+
+document.getElementById('loginBtn').addEventListener('click', function() {
+    const username = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+    login(username, password);
+});
+
+document.getElementById('logoutBtn').addEventListener('click', logout);
+
+document.getElementById('checkLoginBtn').addEventListener('click', checkLogIn);

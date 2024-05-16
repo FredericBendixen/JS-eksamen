@@ -1,0 +1,93 @@
+/* Resetting default margin and padding */
+body {
+    background-color: #0c0e0f;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Styling for header */
+header {
+    background-color: #27292a;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Styling for navigation */
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none; /* Remove default list styling */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+}
+
+/* Styling for container */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Styling for game item */
+.item {
+    background-color: #3c3f41;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.item img {
+    display: block;
+    margin: 0 auto 10px; /* Center align images horizontally and provide spacing */
+    border-radius: 10px;
+    max-width: 100%;
+}
+
+.item h4 {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.platforms {
+    color: #666;
+    font-size: 12px;
+}
+
+.rating,
+.date {
+    color: #fff;
+    font-size: 12px;
+}
+
+/* Styling for "Show More" button */
+.showMore {
+    text-align: center;
+    margin-top: 20px;
+}
+.showMore {
+    text-align: center;
+    margin-top: 20px;
+    border: 2px solid white; /* Add a white border */
+    padding: 10px; /* Add padding for better appearance */
+    cursor: pointer; /* Add a pointer cursor to indicate it's clickable */
+    width: fit-content; /* Make the width fit the content */
+}

@@ -9,6 +9,15 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   async function renderStoredGame(game) {
+    if (!game) {
+      console.error("Game object is undefined", game);
+      return;
+    }
+    //Checks if all information retrieved is correct
+    if (!game || !game.name || !game.background_image || !game.platforms || !game.developers || !game.rating || !game.released) {
+      console.error("Invalid game object", game);
+      return;
+    }
     // Create elements for the stored game
     const gameItemEl = document.createElement("div");
     gameItemEl.className = "col-lg-3 col-md-6 col-sm-12 item";
@@ -17,13 +26,24 @@ document.addEventListener("DOMContentLoaded", function () {
     gameItemEl.style.padding = "30px 15px";
     gameItemEl.style.borderRadius = "23px";
     gameItemEl.style.marginBottom = "30px";
+    gameItemEl.style.position = "relative";
+    gameItemEl.style.overflow = "hidden";
+    
+
+    // Fixed height for the container
+    const gameImageContainer = document.createElement("div");
+    gameImageContainer.style.width = "100%";
+    gameImageContainer.style.height = "250px";
+    gameImageContainer.style.overflow = "hidden";
 
     // Create and style game image element
     const gameImage = document.createElement("img");
     gameImage.src = game.background_image;
     gameImage.alt = `${game.name} image`;
-    gameImage.style.borderRadius = "23px";
-    gameImage.style.maxHeight = "250px";
+    gameImage.style.borderRadius = "23px"
+    gameImage.style.width = "35%";
+    gameImage.style.height = "35%";
+    gameImage.style.objectFit = "contain";
     gameItemEl.appendChild(gameImage);
 
     // Create and style game name element
@@ -86,9 +106,32 @@ document.addEventListener("DOMContentLoaded", function () {
     gameItemEl.style.border = "1px solid #ccc";
     gameItemEl.style.borderRadius = "5px";
 
+    const removeButton = document.createElement("button");
+    removeButton.textContent = "Remove";
+    removeButton.style.position = "absolute";
+    removeButton.style.top = "10px";
+    removeButton.style.right = "10px";
+    removeButton.style.backgroundColor = "#C70039";
+    removeButton.style.color = "#fff";
+    removeButton.style.border = "none";
+    removeButton.style.padding = "10px";
+    removeButton.style.borderRadius = "5px";
+    removeButton.style.cursor = "pointer";
+    // makes sure that the button is above other elements
+    removeButton.style.zIndex = "1000";
+    removeButton.addEventListener("click", () => removeGame(game.id, gameItemEl));
+    gameItemEl.appendChild(removeButton);
+
     // Append the created game item to the cartItems container
     const cartItemsContainer = document.getElementById("cartItems");
     cartItemsContainer.appendChild(gameItemEl);
+  }
+
+  function removeGame(gameId, gameItemEl) {
+    const storedGames = JSON.parse(localStorage.getItem("selectedGames")) || {};
+    delete storedGames[gameId];
+    localStorage.setItem("selectedGames", JSON.stringify(storedGames));
+    gameItemEl.remove();
   }
 
   async function loadStoredGames() {

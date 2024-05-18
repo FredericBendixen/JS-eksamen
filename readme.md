@@ -24,3 +24,5 @@
     -  git clone https://github.com/FredericBendixen/JS-eksamen
 - Get a API key from rawg.io to get accsess to the api's features.
 - Create and check CrudCrud api endpoint.
+
+## Created by Frederic Næss Bendixen

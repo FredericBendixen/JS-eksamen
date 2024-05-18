@@ -4,7 +4,7 @@ class GameManager {
     constructor() {
         this.gameList = document.getElementById("gamesList");
         this.loadMoreGamesBtn = document.getElementById("showMoreBtn");
-        this.loadMoreGamesBtn.style.display = "none"; // Hide button at first
+        this.loadMoreGamesBtn.style.display = "none";
     }
     
     async loadGames(apiURL) {
@@ -30,7 +30,7 @@ class GameManager {
 
     storeSelectedGame(game) {
         let storedGames = JSON.parse(localStorage.getItem('selectedGames')) || {};
-        const gameId = game.id; // Assuming 'id' is unique for each game
+        const gameId = game.id;
         storedGames[gameId] = game;
         localStorage.setItem('selectedGames', JSON.stringify(storedGames));
     
@@ -88,12 +88,12 @@ class GameManager {
         ul.style.float = "right";
         ul.style.marginTop = "20px";
         const ratingLi = document.createElement('li');
-        ratingLi.innerHTML = `&#9733; <span class="rating">${game.rating}</span>`; // Unicode character for star
+        ratingLi.innerHTML = `&#9733; <span class="rating">${game.rating}</span>`;
         ratingLi.style.textAlign = "right";
         ratingLi.style.color = "#fffa86";
         ratingLi.style.fontSize = "14px";
         const dateLi = document.createElement('li');
-        dateLi.innerHTML = `&#128197; <span class="date">${game.released}</span>`; // Unicode character for calendar
+        dateLi.innerHTML = `&#128197; <span class="date">${game.released}</span>`;
         dateLi.style.textAlign = "right";
         dateLi.style.color = "#fff";
         dateLi.style.fontSize = "14px";

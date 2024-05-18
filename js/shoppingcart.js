@@ -1,7 +1,6 @@
 const APIKEY = "c2879759b3ba4c1687f5210ee110629b";
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Ensure the DOM is fully loaded before executing any JavaScript
 
     // Add event listener for the "gameStored" event
     document.addEventListener('gameStored', async function(event) {
@@ -40,7 +39,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Create and style platforms element
         const platformsSpan = document.createElement('span');
         platformsSpan.className = 'platforms';
-        platformsSpan.textContent = await getPlatformStr(game.platforms); // Change game.parent_platforms to game.platforms
+         // Change game.parent_platforms to game.platforms
+        platformsSpan.textContent = await getPlatformStr(game.platforms);
         platformsSpan.style.color = "#900C3F";
         platformsSpan.style.display = "block";
         platformsSpan.style.marginTop = "7px";
@@ -48,18 +48,28 @@ document.addEventListener('DOMContentLoaded', function() {
         gameName.appendChild(document.createElement('br'));
         gameName.appendChild(platformsSpan);
         gameItemEl.appendChild(gameName);
+
+        //Create and style developer details
+        const developerSpan = document.createElement('span');
+        developerSpan.className = 'developer';
+        developerSpan.textContent = `Developer: ${game.developers[0].name}`;
+        developerSpan.style.color = "900C3F";
+        developerSpan.style.display = "block";
+        developerSpan.style.marginTop = "7px";
+        developerSpan.style.fontWeight = "400";
+        gameName.appendChild(developerSpan);
     
         // Create and style ul element for additional game details
         const ul = document.createElement('ul');
         ul.style.float = "right";
         ul.style.marginTop = "20px";
-        // Create and style rating li element
+
         const ratingLi = document.createElement('li');
         ratingLi.innerHTML = `&#9733; <span class="rating">${game.rating}</span>`;
         ratingLi.style.textAlign = "right";
         ratingLi.style.color = "#fffa86";
         ratingLi.style.fontSize = "14px";
-        // Create and style date li element
+        
         const dateLi = document.createElement('li');
         dateLi.innerHTML = `&#128197; <span class="date">${game.released}</span>`;
         dateLi.style.textAlign = "right";
@@ -95,7 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error("An error occurred while loading stored games:", error);
         }
     }
-
+    // Find gameId for more info
     async function fetchGameDetails(gameId) {
         try {
             const response = await fetch(`https://api.rawg.io/api/games/${gameId}?key=${APIKEY}`);
